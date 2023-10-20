@@ -1,6 +1,8 @@
 package com.example.befinalexam.services;
 
+import com.example.befinalexam.model.ErrorException;
 import com.example.befinalexam.model.User;
+import com.example.befinalexam.repository.ErrorCode;
 import com.example.befinalexam.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -26,10 +28,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Optional findById(Long id) {
+    public User findById(Long id) {
 
-        return userRepository.findById(id);
-    }
+        return userRepository.findById(id).orElseThrow(
+                ()-> new ErrorException(ErrorCode.USER_NOT_FOUND,"User not found with "+id)
+        );
+
+    };
+
 
     @Override
     public void deleteById(Long id) {

@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface UserRepository {
  List<User> findAll();
  User save(User user);
- Optional findById(Long id);
+ Optional<User> findById(Long id);
  void delete(Long id);
 }

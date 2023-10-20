@@ -27,7 +27,7 @@ public class UserController {
         return  service.save(user);
     }
     @GetMapping("{id}")
-    public Optional getById(@PathVariable Long id){
+    public User getById(@PathVariable Long id){
         return service.findById(id);
     }
     @DeleteMapping("{id}")
