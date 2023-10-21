@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @Repository
 @Component
-@Primary
 @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
