@@ -18,6 +18,7 @@ import java.util.Optional;
 @CrossOrigin("*")
 public class UserController {
     UserService service;
+    UserMapper mapper;
     @GetMapping
     public List<User> findAll(){
         return  service.getAll();
@@ -33,5 +34,12 @@ public class UserController {
     @DeleteMapping("{id}")
     public  void deleteById(@PathVariable  Long id){
         service.deleteById(id);
+    }
+    @PatchMapping("update/{id}")
+    public  UserResp updateUser(@PathVariable Long id,@RequestBody UserUpdateReq req){
+        var check = service.findById(id);
+        mapper.update(req, check);
+        return check.transform(service::save)
+                .transform(mapper::toUserResp);
     }
 }

@@ -1,13 +1,13 @@
 package com.example.befinalexam.controller;
-
 import com.example.befinalexam.model.Product;
 import com.example.befinalexam.services.ProductService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 @RequestMapping("api/v1/product")
 @RestController
 @Slf4j
@@ -16,17 +16,20 @@ import java.util.List;
 @CrossOrigin("*")
 public class ProductController {
     ProductService service;
+    ProductMapper mapper;
     @GetMapping
-    public List<Product> getAll(){
-        return  service.findAll();
+    public Page<ProductResp> getAll(ProductFillter fillter,Pageable pageable){
+        return service.findAll(fillter,pageable).map(mapper::toProductResp);
     }
     @GetMapping("{id}")
-    public Product getById(@PathVariable  Long id){
-        return  service.findById(id);
+    public ProductResp getById(@PathVariable  Long id){
+        return  service.findById(id).transform(mapper::toProductResp);
     }
-    @PostMapping
-    public Product create(Product product){
-        return  service.save(product);
+    @PostMapping("create")
+    public ProductResp create(@RequestBody ProductReq productReq){
+        return  productReq.transform(mapper::toProduct)
+                .transform(service::save)
+                .transform(mapper::toProductResp);
     }
     @DeleteMapping("{id}")
     public  void delete(@PathVariable Long id){

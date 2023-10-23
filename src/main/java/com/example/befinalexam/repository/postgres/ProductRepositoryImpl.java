@@ -1,5 +1,6 @@
 package com.example.befinalexam.repository.postgres;
 
+import com.example.befinalexam.controller.ProductFillter;
 import com.example.befinalexam.model.Product;
 import com.example.befinalexam.repository.ProductRepository;
 import lombok.AccessLevel;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -24,8 +27,9 @@ public class ProductRepositoryImpl implements ProductRepository {
     ProductJpaRepository jpaRepository;
 
     @Override
-    public List<Product> findAll() {
-        return jpaRepository.findAll();
+    public Page<Product> findAll(ProductFillter fillter,Pageable pageable) {
+        var spec= ProductSpecification.withFillter(fillter);
+        return jpaRepository.findAll(spec,pageable);
     }
 
     @Override

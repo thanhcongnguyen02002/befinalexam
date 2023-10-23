@@ -1,5 +1,7 @@
 package com.example.befinalexam.services;
 
+import com.example.befinalexam.controller.UserReq;
+import com.example.befinalexam.controller.UserResp;
 import com.example.befinalexam.model.ErrorException;
 import com.example.befinalexam.model.User;
 import com.example.befinalexam.repository.ErrorCode;
@@ -40,6 +42,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteById(Long id) {
         userRepository.delete(id);
+    }
+
+    @Override
+    public User update(User user) {
+        return userRepository.save(user);
     }
 
 
