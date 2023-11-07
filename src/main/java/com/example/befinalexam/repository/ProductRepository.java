@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ProductRepository {
     Page<Product> findAll(ProductFillter fillter,Pageable pageable);
     Optional<Product> findById(Long id);
-
+    List<Product> findAllProducts();
     Product save(Product product);
 
     void deleteById(Long id);

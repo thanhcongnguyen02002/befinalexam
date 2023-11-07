@@ -2,6 +2,7 @@ package com.example.befinalexam.repository.postgres;
 
 import com.example.befinalexam.controller.ProductFillter;
 import com.example.befinalexam.model.Product;
+import com.example.befinalexam.model.ProductType;
 import com.example.befinalexam.repository.ProductRepository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 @Repository
 @Component
@@ -35,6 +38,16 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Optional<Product> findById(Long id) {
         return jpaRepository.findById(id);
+    }
+
+    @Override
+    public List<Product> findAllProducts() {
+        List<Object> objects = jpaRepository.getProductsBy();
+        for (Object object: objects) {
+            ProductType productType = (ProductType) object;
+            System.out.println(productType);
+        }
+        return new ArrayList<>();
     }
 
     @Override

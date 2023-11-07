@@ -1,5 +1,6 @@
 package com.example.befinalexam.services;
 
+import com.example.befinalexam.controller.UserFillter;
 import com.example.befinalexam.controller.UserReq;
 import com.example.befinalexam.controller.UserResp;
 import com.example.befinalexam.model.ErrorException;
@@ -10,6 +11,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,8 +23,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
     UserRepository userRepository;
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public Page<User> getAll(UserFillter fillter,Pageable pageable) {
+        return userRepository.findAll(fillter,pageable);
     }
 
     @Override

@@ -12,7 +12,7 @@ public interface ProductService {
     Page<Product> findAll(ProductFillter fillter,Pageable pageable);
     Product findById(Long id);
 
-
+    List<Product> findAllProducts();
     Product save(Product product);
 
     void deletebyId(Long id);

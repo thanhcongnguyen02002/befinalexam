@@ -31,7 +31,10 @@ public class ProductServiceImpl implements ProductService {
                 ()-> new ErrorCodeException(ErrorCode.PRODUCT_NOT_FOUND,"Product not found with "+id));
     }
 
-
+    @Override
+    public List<Product>  findAllProducts() {
+        return repository.findAllProducts();
+    }
 
 
     @Override
@@ -41,10 +44,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deletebyId(Long id) {
-        var check = findById(id);
-        if( check == null){
-            throw new ErrorException(ErrorCode.PRODUCT_NOT_FOUND,"Product not found with "+id );
-        }
         repository.deleteById(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.befinalexam.repository.postgres;
 
+import com.example.befinalexam.controller.UserFillter;
 import com.example.befinalexam.model.User;
 import com.example.befinalexam.repository.UserRepository;
 import lombok.AccessLevel;
@@ -7,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -22,8 +25,9 @@ public class UserRepositoryImpl implements UserRepository {
     UserJpaRepository repository;
 
     @Override
-    public List<User> findAll() {
-        return repository.findAll();
+    public Page<User> findAll(UserFillter fillter,Pageable pageable) {
+        var spec = UserSpecification.withFillter(fillter);
+        return repository.findAll(spec,pageable);
     }
 
     @Override

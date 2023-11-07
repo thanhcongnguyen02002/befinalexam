@@ -8,6 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RequestMapping("api/v1/product")
 @RestController
 @Slf4j
@@ -34,5 +37,9 @@ public class ProductController {
     @DeleteMapping("{id}")
     public  void delete(@PathVariable Long id){
         service.deletebyId(id);
+    }
+    @GetMapping("getall")
+    public List<Product> getAllProducts(){
+        return service.findAllProducts();
     }
 }
